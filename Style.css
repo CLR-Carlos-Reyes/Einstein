@@ -1,0 +1,285 @@
+/* ===== Colors and fonts (subtle, elegant palette) ===== */
+:root {
+    --cream: #F7F4EE;
+    --paper: #FFFDF9;
+    --slate: #3E4A59;
+    --muted: #6B7380;
+    --gold: #B8A06A;
+    --gold-dark: #8C7643;
+    --line: #E4DCCB;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--slate);
+    background: var(--cream);
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--gold-dark); }
+
+/* ===== Page layout: one CSS Grid for the whole page =====
+   The content is centered and capped at 1200px, so a small laptop and a big
+   monitor show the same layout; the big screen just gets wider margins. */
+.page {
+    display: grid;
+    grid-template-columns: minmax(24px, 1fr) minmax(0, 1200px) minmax(24px, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+    ". header ."
+    ". main   ."
+    ". footer .";
+    min-height: 100vh;
+}
+.site-header { grid-area: header; }
+main         { grid-area: main; }
+.site-footer { grid-area: footer; }
+
+/* ===== Header ===== */
+.site-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+}
+.logo {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--slate);
+    text-decoration: none;
+}
+.site-nav {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 32px;
+}
+.site-nav a {
+    color: var(--slate);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: .03em;
+}
+.site-nav a:hover { color: var(--gold-dark); }
+.menu-toggle { display: none; }
+
+/* ===== Hero: photo + introduction ===== */
+.hero {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 64px;
+    align-items: center;
+    padding: 64px 0;
+}
+.portrait {
+    background: var(--paper);
+    padding: 14px 14px 10px;
+    border: 1px solid var(--line);
+    box-shadow: 0 12px 30px rgba(62, 74, 89, .12);
+    transform: rotate(-1.5deg);
+}
+.portrait img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: grayscale(100%);
+}
+.portrait figcaption {
+    font-family: var(--serif);
+    font-style: italic;
+    text-align: center;
+    color: var(--muted);
+    padding-top: 8px;
+}
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold-dark);
+}
+h1, h2, h3 { font-family: var(--serif); line-height: 1.15; }
+h1 { font-size: 64px; margin: 8px 0 16px; }
+.lead { font-size: 19px; color: var(--muted); max-width: 560px; }
+blockquote {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-style: italic;
+    border-left: 3px solid var(--gold);
+    padding-left: 16px;
+    margin: 24px 0;
+}
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+    max-width: 520px;
+}
+.stats div {
+    display: grid;
+    border-top: 1px solid var(--line);
+    padding-top: 8px;
+}
+.stats span { font-family: var(--serif); font-size: 30px; font-weight: 700; }
+.stats small { color: var(--muted); font-size: 14px; }
+.btn {
+    display: inline-block;
+    background: var(--slate);
+    color: var(--cream);
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 2px;
+    font-weight: 600;
+    transition: background .2s;
+}
+.btn:hover { background: var(--gold-dark); }
+
+/* ===== Papers ===== */
+.papers { padding: 48px 0 80px; border-top: 1px solid var(--line); }
+.section-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+h2 { font-size: 44px; }
+.controls { display: grid; grid-template-columns: 260px 150px; gap: 12px; }
+.controls input, .controls select {
+    font: inherit;
+    font-size: 15px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--slate);
+    border-radius: 2px;
+}
+.controls input:focus, .controls select:focus { outline: 2px solid var(--gold); }
+
+/* Expandable grid: always 3 columns on laptops and large screens.
+   New papers simply flow into new rows. */
+.paper-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+/* Each paper is its own distinct block */
+.paper-card {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+    "icon  meta"
+    "title title"
+    "desc  desc"
+    "link  link";
+    gap: 12px 16px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--gold);
+    padding: 24px;
+    box-shadow: 0 2px 6px rgba(62, 74, 89, .05);
+    transition: transform .2s, box-shadow .2s;
+}
+.paper-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(62, 74, 89, .12);
+}
+.paper-card img   { grid-area: icon; width: 48px; }
+.paper-meta       { grid-area: meta; align-self: center; font-size: 14px; color: var(--muted); }
+.paper-meta strong { display: block; font-size: 22px; font-family: var(--serif); color: var(--gold-dark); }
+.paper-card h3    { grid-area: title; font-size: 24px; }
+.paper-card p     { grid-area: desc; color: var(--muted); font-size: 15px; }
+.paper-card a     { grid-area: link; font-weight: 600; text-decoration: none; }
+.paper-card a:hover { text-decoration: underline; }
+.empty { text-align: center; color: var(--muted); padding: 40px 0; }
+
+/* ===== Footer ===== */
+.site-footer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.visually-hidden {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* =====================================================
+   Q4: Responsive design for tablets and phones
+   ===================================================== */
+
+/* Tablets and narrow windows */
+@media (max-width: 900px) {
+    .hero { gap: 40px; }
+    h1 { font-size: 52px; }
+    .paper-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-head { grid-template-columns: 1fr; }
+    .controls { grid-template-columns: 1fr 150px; }
+}
+
+/* Phones such as the iPhone */
+@media (max-width: 640px) {
+    body { font-size: 16px; }
+
+    .page { grid-template-columns: 16px minmax(0, 1fr) 16px; }
+
+    /* Header: menu button opens a stacked nav */
+    .site-header { padding: 16px 0; }
+    .menu-toggle {
+        display: block;
+        font: inherit;
+        font-weight: 600;
+        background: none;
+        border: 1px solid var(--slate);
+        color: var(--slate);
+        padding: 8px 16px;
+        min-height: 44px;
+        border-radius: 2px;
+    }
+    .site-nav {
+        grid-column: 1 / -1;
+        grid-auto-flow: row;
+        gap: 0;
+        display: none;
+        padding-top: 12px;
+    }
+    .site-nav.open { display: grid; }
+    .site-nav a { padding: 12px 0; border-bottom: 1px solid var(--line); }
+
+    /* Hero stacks: photo on top, text below */
+    .hero { grid-template-columns: 1fr; gap: 32px; padding: 32px 0; text-align: center; }
+    .portrait { max-width: 300px; margin: 0 auto; transform: none; }
+    h1 { font-size: 42px; }
+    .lead { font-size: 17px; margin: 0 auto; }
+    blockquote { font-size: 20px; border-left: none; padding: 0; }
+    .stats { margin: 0 auto 24px; }
+    .stats span { font-size: 22px; }
+    .btn { display: block; padding: 14px; }
+
+    /* Papers become a single column */
+    h2 { font-size: 34px; }
+    .controls { grid-template-columns: 1fr; }
+    .controls input, .controls select { font-size: 16px; min-height: 44px; }
+    .paper-grid { grid-template-columns: 1fr; gap: 20px; }
+    .paper-card { padding: 20px; }
+    .paper-card:hover { transform: none; }
+
+    .site-footer { grid-template-columns: 1fr; text-align: center; }
+}
