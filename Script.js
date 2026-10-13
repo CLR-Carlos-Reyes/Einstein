@@ -103,7 +103,7 @@ function createCard(paper) {
     return card;
 }
 
-// Filter, sort and draw the cards
+// Filter, sort and draw the cards for the page
 function renderPapers() {
     const query = searchInput.value.trim().toLowerCase();
 
@@ -115,7 +115,7 @@ function renderPapers() {
     emptyMessage.hidden = visible.length > 0;
 }
 
-// Mobile menu (Q4)
+// Mobile menu (Q4 solution)
 const menuButton = document.querySelector(".menu-toggle");
 const nav = document.getElementById("site-nav");
 menuButton.addEventListener("click", () => {

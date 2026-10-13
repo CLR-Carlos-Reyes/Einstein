@@ -1,8 +1,10 @@
 /* ===== Colors and fonts (subtle, elegant palette) ===== */
 :root {
-    --cream: #F7F4EE;
+    /* Save some css styles as a variable to simply call them later via a "nickname"/variable */
+    /* Trying to mimic a old newspaper scheme */
+    --cream: #F6EEE3;
     --paper: #FFFDF9;
-    --slate: #3E4A59;
+    --slate: #2e3943;
     --muted: #6B7380;
     --gold: #B8A06A;
     --gold-dark: #8C7643;
@@ -27,8 +29,8 @@ img { max-width: 100%; display: block; }
 a { color: var(--gold-dark); }
 
 /* ===== Page layout: one CSS Grid for the whole page =====
-   The content is centered and capped at 1200px, so a small laptop and a big
-   monitor show the same layout; the big screen just gets wider margins. */
+    The content will be capped and centered at 1200px, whether it's a big monitor or a small one they will both show the same layout.
+    The bigger screen will just result in wider margins */
 .page {
     display: grid;
     grid-template-columns: minmax(24px, 1fr) minmax(0, 1200px) minmax(24px, 1fr);
@@ -93,6 +95,13 @@ main         { grid-area: main; }
     object-fit: cover;
     filter: grayscale(100%);
 }
+.portrait:hover {
+      transform: translateY(-4px);box-shadow: 0 14px 28px rgba(62, 74, 89, .12);
+}
+/* .portrait:active {
+    align-content: center;
+    Plans to make it centered when clicked skipped
+} */
 .portrait figcaption {
     font-family: var(--serif);
     font-style: italic;
@@ -107,11 +116,12 @@ main         { grid-area: main; }
     font-weight: 600;
     color: var(--gold-dark);
 }
-h1, h2, h3 { font-family: var(--serif); line-height: 1.15; }
+h1, h2, h3 {
+    font-family: var(--serif), serif; line-height: 1.15; }
 h1 { font-size: 64px; margin: 8px 0 16px; }
 .lead { font-size: 19px; color: var(--muted); max-width: 560px; }
 blockquote {
-    font-family: var(--serif);
+    font-family: serif;
     font-size: 24px;
     font-style: italic;
     border-left: 3px solid var(--gold);
@@ -166,15 +176,17 @@ h2 { font-size: 44px; }
 }
 .controls input:focus, .controls select:focus { outline: 2px solid var(--gold); }
 
-/* Expandable grid: always 3 columns on laptops and large screens.
-   New papers simply flow into new rows. */
+/* Q3 solution is an expandable grid it will always be a 3 collumn layout on laptops and large screens.
+   Any new papers added will simply flow into new rows. */
 .paper-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
 }
 
-/* Each paper is its own distinct block */
+/* Each paper is its own distinct block
+   Gives that card pick look */
+
 .paper-card {
     display: grid;
     grid-template-columns: 56px 1fr;
@@ -197,6 +209,7 @@ h2 { font-size: 44px; }
     box-shadow: 0 14px 28px rgba(62, 74, 89, .12);
 }
 .paper-card img   { grid-area: icon; width: 48px; }
+
 .paper-meta       { grid-area: meta; align-self: center; font-size: 14px; color: var(--muted); }
 .paper-meta strong { display: block; font-size: 22px; font-family: var(--serif); color: var(--gold-dark); }
 .paper-card h3    { grid-area: title; font-size: 24px; }
@@ -222,7 +235,7 @@ h2 { font-size: 44px; }
 }
 
 /* =====================================================
-   Q4: Responsive design for tablets and phones
+   Q4: Solution by having a Responsive design for  both tablets and phones
    ===================================================== */
 
 /* Tablets and narrow windows */
@@ -273,7 +286,8 @@ h2 { font-size: 44px; }
     .stats span { font-size: 22px; }
     .btn { display: block; padding: 14px; }
 
-    /* Papers become a single column */
+    /* instead of following the previous 3 collumn format, for smaller devices we'll follow a 1 colloumn format
+     */
     h2 { font-size: 34px; }
     .controls { grid-template-columns: 1fr; }
     .controls input, .controls select { font-size: 16px; min-height: 44px; }
